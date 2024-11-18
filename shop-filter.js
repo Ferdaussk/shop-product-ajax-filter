@@ -1,13 +1,14 @@
 
 jQuery(document).ready(function ($) {
-    var slideMargin = $(".shop-products-filter").attr("bwdtbt-data-margin");
+    var maxPriceFilter = $(".shop-products-filter").attr("max-price-filter");
+    // var minPriceFilter = $(".shop-products-filter").attr("min-price-filter");
     var priceCurrency = $(".shop-products-filter").attr("filter-price-currency");
     // Price slider
     $("#price-slider").slider({
         range: true,
         min: 0,
-        max: slideMargin,
-        values: [0, slideMargin],
+        max: maxPriceFilter,
+        values: [0, maxPriceFilter],
         slide: function (event, ui) {
             $("#min_price").val(ui.values[0]);
             $("#max_price").val(ui.values[1]);

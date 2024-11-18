@@ -60,11 +60,12 @@ class Shop_Filters_Widget extends \Elementor\Widget_Base {
 
     protected function render() {
         $settings = $this->get_settings_for_display();
-        $bwdtbt_slide_margin = $settings['slider_max'];
+        $maxPriceFilter = $settings['slider_max'];
+        $minPriceFilter = $settings['slider_min'];
         if (function_exists('get_woocommerce_currency')) {
             $currency = get_woocommerce_currency_symbol();
         }
-        echo '<div class="shop-products-filter" bwdtbt-data-margin="'.esc_attr( $bwdtbt_slide_margin ).'" filter-price-currency="'.$currency.'"></div>';
+        echo '<div class="shop-products-filter" max-price-filter="'.esc_attr( $maxPriceFilter ).'" min-price-filter="'.esc_attr( $minPriceFilter ).'" filter-price-currency="'.$currency.'"></div>';
         ?>
         <div class="sidebar-form">
             <form id="filter-form">
