@@ -64,7 +64,7 @@ class Shop_Filters_Widget extends \Elementor\Widget_Base {
         if (function_exists('get_woocommerce_currency')) {
             $currency = get_woocommerce_currency_symbol();
         }
-        echo '<div class="bwdtbt-for-all-owlCarousel" bwdtbt-data-margin="'.esc_attr( $bwdtbt_slide_margin ).'" filter-price-currency="'.$currency.'"></div>';
+        echo '<div class="shop-products-filter" bwdtbt-data-margin="'.esc_attr( $bwdtbt_slide_margin ).'" filter-price-currency="'.$currency.'"></div>';
         ?>
         <div class="sidebar-form">
             <form id="filter-form">

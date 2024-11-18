@@ -1,13 +1,7 @@
-jQuery(document).ready(function($) {
-    // Get the value of the custom data attribute
-    var slideMargin = $(".bwdtbt-for-all-owlCarousel").attr("bwdtbt-data-margin");
-
-    console.log(slideMargin); // Check the value in the console
-});
 
 jQuery(document).ready(function ($) {
-    var slideMargin = $(".bwdtbt-for-all-owlCarousel").attr("bwdtbt-data-margin");
-    var priceCurrency = $(".bwdtbt-for-all-owlCarousel").attr("filter-price-currency");
+    var slideMargin = $(".shop-products-filter").attr("bwdtbt-data-margin");
+    var priceCurrency = $(".shop-products-filter").attr("filter-price-currency");
     // Price slider
     $("#price-slider").slider({
         range: true,
