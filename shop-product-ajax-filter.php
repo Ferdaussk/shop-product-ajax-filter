@@ -28,10 +28,28 @@ add_action('elementor/widgets/widgets_registered', function () {
     // Filtered Products Widget
     require_once plugin_dir_path(__FILE__) . 'widgets/shop-toggle-widget.php';
     \Elementor\Plugin::instance()->widgets_manager->register(new \Shop_Toggle_Widget());
+
+    // Filtered Products Widget
+    require_once plugin_dir_path(__FILE__) . 'widgets/page-title.php';
+    \Elementor\Plugin::instance()->widgets_manager->register(new \WCSPC_PArchiveTitle());
+    // Filtered Products Widget
+    require_once plugin_dir_path(__FILE__) . 'widgets/products-count.php';
+    \Elementor\Plugin::instance()->widgets_manager->register(new \WCSPC_ArchiveCount());
+    // Filtered Products Widget
+    require_once plugin_dir_path(__FILE__) . 'widgets/breadcrumb.php';
+    \Elementor\Plugin::instance()->widgets_manager->register(new \WCSPC_PBreadcrumb());
 });
+
+
+
+
+
 
 // Enqueue scripts for widgets
 function enqueue_elementor_widget_scripts() {
+    wp_enqueue_script('inline-repeater', plugin_dir_url(__FILE__) . 'inline-edit/inline-repeater.js', array('jquery'), null, true);
+    wp_enqueue_style('inline-repeater', plugin_dir_url(__FILE__) . 'inline-edit/inline-repeater.css', null, null, 'all');
+
     wp_enqueue_script('jquery-ui-slider');
     wp_enqueue_script('shop-filter', plugin_dir_url(__FILE__) . 'shop-filter.js', array('jquery', 'jquery-ui-slider'), null, true);
     wp_enqueue_script('shop-toggle', plugin_dir_url(__FILE__) . 'toggle.js', array('jquery'), null, true);
@@ -51,7 +69,7 @@ add_action('wp_ajax_nopriv_filter_products', 'filter_products');
 function filter_products() {
     $args = array(
         'post_type' => 'product',
-        'posts_per_page' => 10,
+        'posts_per_page' => 20,
         'post_status' => 'publish',
     );
 
@@ -179,6 +197,13 @@ function filter_products() {
         $args['post_type'] = 'product_variation';
     }
 
+    // Variation filtering logic
+    // if (!empty($_POST['variations'])) {
+    //     $variation_ids = array_map('sanitize_text_field', $_POST['variations']);
+    //     $args['post_type'] = array('product', 'product_variation');
+    //     $args['post__in'] = $variation_ids;
+    // }
+
     // Affiliate products filter
     if (!empty($_POST['affiliate_product'])) {
         $args['meta_query'][] = array(
@@ -193,10 +218,24 @@ function filter_products() {
 
     ob_start();
     if ($query->have_posts()) {
+
+
+
+        global $processed_text_global;
+
+    if ( isset( $processed_text_global ) ) {
+        // Now you can use $processed_text_global
+        echo 'Processed Text: ' . $processed_text_global;
+    }
+
+
+
+        echo '<ul class="products columns-3">';
         while ($query->have_posts()) {
             $query->the_post();
             wc_get_template_part('content', 'product');
         }
+        echo '</ul>';
     } else {
         echo '<p>No products found</p>';
     }
@@ -205,3 +244,10 @@ function filter_products() {
     echo ob_get_clean();
     wp_die();
 }
+
+// add_action( 'my_widget_text_value', 'filter_products');
+// add_action( 'my_widget_text_value', function( $text ) {
+//     var_dump( 'Widget Text Value: ' . $text );
+//     filter_products( $text );
+// });
+

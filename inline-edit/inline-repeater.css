@@ -1,0 +1,20 @@
+.inline-repeater-list {
+    list-style: none;
+    padding: 0;
+}
+
+.repeater-item {
+    padding: 5px;
+    border: 1px dashed #ccc;
+    margin: 5px 0;
+    cursor: text;
+}
+
+.repeater-item:focus {
+    outline: none;
+    border: 1px solid #007cba;
+}
+.repeater-item[contenteditable="true"]:focus {
+    outline: 2px solid #007cba;
+    border-radius: 4px;
+}
