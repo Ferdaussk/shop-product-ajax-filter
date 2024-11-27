@@ -31,7 +31,7 @@ jQuery(document).ready(function ($) {
             type: "POST",
             data: filterData + "&action=filter_products",
             beforeSend: function () {
-                $("#filtered-products").html('<p>Loading...</p>');
+                $("#filtered-products").html('<div class="loading-spinner"></div>');
             },
             success: function (response) {
                 $("#filtered-products").html(response);
@@ -46,30 +46,19 @@ jQuery(document).ready(function ($) {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Select the elements with the class names
     const productLinks = document.querySelectorAll('.woocommerce-LoopProduct-link');
-
-    // Loop through each product link to find the title, price, and rating
     productLinks.forEach(function(link) {
         const title = link.querySelector('.woocommerce-loop-product__title');
         const price = link.querySelector('.price');
         const starRating = link.querySelector('.star-rating');
-
         if (title && price) {
-            // Create a wrapper element
             const wrapper = document.createElement('div');
-            wrapper.classList.add('product-title-price-wrapper'); // Optional class for styling
-            
-            // Append the title and price to the wrapper
+            wrapper.classList.add('product-title-price-wrapper');
             wrapper.appendChild(title);
             wrapper.appendChild(price);
-            
-            // Append the star rating if it exists
             if (starRating) {
                 wrapper.appendChild(starRating);
             }
-            
-            // Append the wrapper back to the link element (or another parent element)
             link.appendChild(wrapper);
         }
     });

@@ -34,15 +34,15 @@ class WCSPC_ArchiveCount extends Widget_Base {
                 'label' => __( 'Result Count', 'text-domain' ),
             ]
         );
-        $this->add_control(
-            'product_per_page',
-            [
-                'label' => __( 'Product Per Page', 'text-domain' ),
-                'type' => Controls_Manager::NUMBER,
-                'default' => 20,
-                'separator' => 'after'
-            ]
-        );
+		$this->add_control(
+			'shop_count_custom_text',
+			[
+				'label'       => __( 'Custom Text', 'text-domain' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => __( 'Total Products:', 'text-domain' ),
+				'placeholder' => __( 'Enter custom text', 'text-domain' ),
+			]
+		);
         $this->add_responsive_control(
             'result_count_align',
             [
@@ -64,6 +64,9 @@ class WCSPC_ArchiveCount extends Widget_Base {
                 ],
                 'prefix_class' => 'elementor-align-%s',
                 'default'      => 'left',
+                'selectors' => [
+                    '{{WRAPPER}} .wcspc_archive_result_count' => 'text-align: {{VALUE}};',
+                ],
             ]
         );
         $this->end_controls_section();
@@ -92,7 +95,7 @@ class WCSPC_ArchiveCount extends Widget_Base {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name' => 'filter_products_shop_count_name_typography',
-				'selector' => '{{WRAPPER}} .wcspc_archive_result_count .woocommerce-result-count',
+				'selector' => '{{WRAPPER}} .wcspc_archive_result_count',
 			]
 		);
 		
@@ -102,7 +105,7 @@ class WCSPC_ArchiveCount extends Widget_Base {
 				'label' => esc_html__( 'Color',  'text-domain' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .wcspc_archive_result_count .woocommerce-result-count' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .wcspc_archive_result_count' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -112,7 +115,7 @@ class WCSPC_ArchiveCount extends Widget_Base {
 				'name' => 'filter_products_shop_count_content_name_bgcolor',
 				'label' => esc_html__( 'Background', 'text-domain' ),
 				'types' => [ 'classic', 'gradient', 'video' ],
-				'selector' => '{{WRAPPER}} .wcspc_archive_result_count .woocommerce-result-count',
+				'selector' => '{{WRAPPER}} .wcspc_archive_result_count',
 			]
 		);
 		
@@ -120,7 +123,7 @@ class WCSPC_ArchiveCount extends Widget_Base {
 			\Elementor\Group_Control_Border::get_type(),
 			[
 				'name' => 'filter_products_shop_count_border',
-				'selector' => '{{WRAPPER}} .wcspc_archive_result_count .woocommerce-result-count',
+				'selector' => '{{WRAPPER}} .wcspc_archive_result_count',
 			]
 		);
 		
@@ -131,7 +134,7 @@ class WCSPC_ArchiveCount extends Widget_Base {
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
-					'{{WRAPPER}} .wcspc_archive_result_count .woocommerce-result-count' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .wcspc_archive_result_count' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -143,7 +146,7 @@ class WCSPC_ArchiveCount extends Widget_Base {
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
-					'{{WRAPPER}} .wcspc_archive_result_count .woocommerce-result-count' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .wcspc_archive_result_count' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -155,7 +158,7 @@ class WCSPC_ArchiveCount extends Widget_Base {
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
-					'{{WRAPPER}} .wcspc_archive_result_count .woocommerce-result-count' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .wcspc_archive_result_count' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -173,7 +176,7 @@ class WCSPC_ArchiveCount extends Widget_Base {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name' => 'filter_products_shop_count_hover_typography',
-				'selector' => '{{WRAPPER}} .wcspc_archive_result_count .woocommerce-result-count:hover',
+				'selector' => '{{WRAPPER}} .wcspc_archive_result_count:hover',
 			]
 		);
 		
@@ -183,7 +186,7 @@ class WCSPC_ArchiveCount extends Widget_Base {
 				'label' => esc_html__( 'Color',  'text-domain' ),
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .wcspc_archive_result_count .woocommerce-result-count:hover' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .wcspc_archive_result_count:hover' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -193,7 +196,7 @@ class WCSPC_ArchiveCount extends Widget_Base {
 				'name' => 'filter_products_shop_count_content_name_hover_bgcolor',
 				'label' => esc_html__( 'Background', 'text-domain' ),
 				'types' => [ 'classic', 'gradient', 'video' ],
-				'selector' => '{{WRAPPER}} .wcspc_archive_result_count .woocommerce-result-count:hover',
+				'selector' => '{{WRAPPER}} .wcspc_archive_result_count:hover',
 			]
 		);
 		
@@ -202,7 +205,7 @@ class WCSPC_ArchiveCount extends Widget_Base {
 			\Elementor\Group_Control_Border::get_type(),
 			[
 				'name' => 'filter_products_shop_count_hover_border',
-				'selector' => '{{WRAPPER}} .wcspc_archive_result_count .woocommerce-result-count:hover',
+				'selector' => '{{WRAPPER}} .wcspc_archive_result_count:hover',
 			]
 		);
 		
@@ -213,7 +216,7 @@ class WCSPC_ArchiveCount extends Widget_Base {
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
-					'{{WRAPPER}} .wcspc_archive_result_count .woocommerce-result-count:hover' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .wcspc_archive_result_count:hover' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -225,7 +228,7 @@ class WCSPC_ArchiveCount extends Widget_Base {
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
-					'{{WRAPPER}} .wcspc_archive_result_count .woocommerce-result-count:hover' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .wcspc_archive_result_count:hover' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -237,7 +240,7 @@ class WCSPC_ArchiveCount extends Widget_Base {
 				'type' => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
-					'{{WRAPPER}} .wcspc_archive_result_count .woocommerce-result-count:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .wcspc_archive_result_count:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -249,28 +252,12 @@ class WCSPC_ArchiveCount extends Widget_Base {
 
     }
 
-
-    protected function render( $instance = [] ) {
-        $settings   = $this->get_settings_for_display();
-        if( wcspc_is_preview_mode() ){
-            echo '<div class="wcspc_archive_result_count">';
-                $args = array(
-                    'total'    => wp_count_posts( 'product' )->publish,
-                    'per_page' => $settings['product_per_page'],
-                    'current'  => 1,
-                );
-                wc_get_template( 'loop/result-count.php', $args );
-            echo '</div>';
-        } else{
-            $total    = wc_get_loop_prop( 'total' );
-            $par_page = !empty( $settings['product_per_page'] ) ? $settings['product_per_page'] : wc_get_loop_prop('per_page');
-            echo '<div class="wcspc_archive_result_count">';
-                $page = absint( empty( $_GET['product-page'] ) ? 1 : $_GET['product-page'] );
-                wcspc_product_result_count( $total, $par_page, $page );
-            echo '</div>';
-        }
-        
-
-    }
-
+	protected function render( $instance = [] ) {
+		$settings = $this->get_settings_for_display();
+		$custom_text = !empty( $settings['shop_count_custom_text'] ) ? $settings['shop_count_custom_text'] : __( 'Total Products:', 'text-domain' );
+		$total_products = wp_count_posts( 'product' )->publish;
+		echo '<div class="wcspc_archive_result_count">';
+		echo esc_html( $custom_text ) . ' ' . absint( $total_products );
+		echo '</div>';
+	}
 }
